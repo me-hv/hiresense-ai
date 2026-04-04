@@ -1,0 +1,95 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+.installed.cfg
+MANIFEST
+
+# ── Virtual Environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+.env/
+
+# ── Environment Variables ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.env
+
+# ── Jupyter / IPython ─────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+profile_default/
+ipython_config.py
+
+# ── IDE & Editors ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ── OS Artifacts ──────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Uploaded Resumes / Candidate Data (PRIVACY) ───────────────────────────────
+data/
+temp/
+uploads/
+resumes/
+*.pdf
+*.docx
+*.doc
+
+# ── Streamlit ─────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Model Cache ───────────────────────────────────────────────────────────────
+# Sentence transformer and spaCy model caches
+.cache/
+models/
+*.bin
+*.pt
+*.safetensors
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Distribution / Packaging ──────────────────────────────────────────────────
+*.tar.gz
+*.zip
+
+venv/
