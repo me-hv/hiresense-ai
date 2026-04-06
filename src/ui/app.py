@@ -91,17 +91,27 @@ st.markdown("""
         border-radius: 4px;
         font-size: 11px;
         letter-spacing: 0.3px;
-        margin: 3px 4px 6px 0;
+        margin: 4px; /* Ensure tags wrap cleanly and have spacing */
         font-weight: 500;
         line-height: 1.4;
     }
 
+    /* Touch target optimizations for interactable elements */
     [data-testid="stExpander"] {
         background-color: #0E1117 !important;
         border: 1px solid #30363D !important;
         border-radius: 6px !important;
         margin-top: 15px !important;
         margin-bottom: 5px !important;
+    }
+    
+    [data-testid="stExpander"] details summary {
+        padding: 16px !important; /* Increase click area for expander */
+    }
+
+    .stButton > button {
+        padding: 12px 24px !important; /* Touch-friendly button padding */
+        min-height: 48px !important;
     }
 
     .candidate-title {
@@ -111,6 +121,7 @@ st.markdown("""
         display: flex;
         align-items: center;
         padding-top: 5px;
+        flex-wrap: wrap; /* Allows high confidence badge to wrap if necessary */
     }
     .top-match-badge {
         font-size: 10px;
@@ -122,6 +133,8 @@ st.markdown("""
         font-weight: 600;
         letter-spacing: 0.5px;
         text-transform: uppercase;
+        margin-top: 4px; /* Space when wrapping */
+        white-space: nowrap;
     }
 
     .score-value {
@@ -157,8 +170,74 @@ st.markdown("""
         background-color: #21262d;
         margin: 16px 0;
     }
+    
+    .mobile-download-link {
+        display: none;
+        margin-top: 12px;
+        color: #58a6ff;
+        font-size: 14px;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 10px;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        text-align: center;
+        background-color: #161b22;
+    }
+    .mobile-download-link:hover {
+        background-color: #21262d;
+    }
+
+    /* --- MOBILE RESPONSIVE MEDIA QUERY --- */
+    @media (max-width: 768px) {
+        /* Force Stack for Columns */
+        [data-testid="column"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+            min-width: 100% !important;
+            margin-bottom: 12px !important;
+        }
+        
+        /* Progress bars spacing when stacked */
+        .sub-head {
+            margin-top: 16px;
+        }
+
+        /* Adjust Brand Size */
+        .sidebar-brand {
+            font-size: 16px;
+        }
+
+        /* Re-align score and badges for mobile */
+        .score-value {
+            text-align: left;
+            font-size: 22px;
+            margin-top: 8px;
+        }
+        .exp-pill {
+            text-align: left;
+        }
+
+        /* Break candidate title flexbox to wrap properly */
+        .candidate-title {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+        .top-match-badge {
+            margin-left: 0;
+            margin-top: 8px;
+        }
+        
+        /* Show download link and limit iframe height */
+        .pdf-frame {
+            height: 300px !important;
+        }
+        .mobile-download-link {
+            display: block;
+        }
+    }
 </style>
-""", unsafe_allow_html=True)
+"""), unsafe_allow_html=True)
 
 # ─── Module imports ───────────────────────────────────────────────────────────
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -217,8 +296,9 @@ def render_pdf_preview(file_bytes: bytes, file_name: str):
         return
     b64 = base64.b64encode(file_bytes).decode("utf-8")
     st.markdown(
-        f"<iframe src='data:application/pdf;base64,{b64}' width='100%' height='520px' "
-        f"style='border:1px solid #30363d;border-radius:6px;background:#0E1117;'></iframe>",
+        f"<iframe class='pdf-frame' src='data:application/pdf;base64,{b64}' width='100%' height='520px' "
+        f"style='border:1px solid #30363d;border-radius:6px;background:#0E1117;'></iframe>"
+        f"<a href='data:application/pdf;base64,{b64}' download='{file_name}' class='mobile-download-link'>Download Original Document ({file_name})</a>",
         unsafe_allow_html=True
     )
 
