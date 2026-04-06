@@ -237,7 +237,7 @@ st.markdown("""
         }
     }
 </style>
-"""), unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # ─── Module imports ───────────────────────────────────────────────────────────
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
