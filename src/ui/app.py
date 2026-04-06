@@ -17,19 +17,19 @@ st.set_page_config(
 
 def ensure_spacy_model():
     """
-    Checks if the spaCy 'en_core_web_sm' model is installed.
-    If not, attempts to download it automatically to ensure 'self-healing' deployment.
+    Attempts to load the 'en_core_web_sm' model.
+    The model is expected to be pre-installed via requirements.txt.
     """
     try:
         import spacy
         try:
             spacy.load("en_core_web_sm")
         except OSError:
-            with st.spinner("Downloading language model for first-time setup..."):
-                import subprocess
-                subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"], capture_output=True)
+            st.error("Language Model Failure: 'en_core_web_sm' not found. Ensure the wheel is in requirements.txt.")
+            st.stop()
     except ImportError:
-        st.error("Missing dependency: 'spacy'. Please ensure it is in requirements.txt.")
+        st.error("Dependency Failure: 'spacy' is missing. Please add it to requirements.txt.")
+        st.stop()
 
 # --- SESSION STATE INITIALIZATION ---
 if "shortlist" not in st.session_state:
